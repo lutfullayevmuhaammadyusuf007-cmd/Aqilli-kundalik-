@@ -1,0 +1,541 @@
+https://share.gemini.google/A4XLcZsQVLlr
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aqlli Kundalik va Bulutli Arxiv (30+ Languages)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+body { font-family: 'Poppins', sans-serif; }
+</style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950 min-h-screen text-gray-100 flex flex-col items-center p-4 sm:p-6">
+​<!-- REKLAMA BLOKI 1 (Yuqori banner) -->
+<div class="w-full max-w-2xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-xl p-2.5 mb-4 flex items-center justify-between text-xs text-amber-300">
+<span class="flex items-center gap-2"><i class="fa-solid fa-rectangle-ad text-amber-400"></i> <span data-i18n="adText">Sizga yoqishi mumkin bo'lgan ilova yoki o'yinlar bo'lishi mumkin</span></span>
+<span class="bg-amber-500/30 px-2 py-0.5 rounded text-[10px]" data-i18n="adBadge1">E'lon</span>
+</div>
+​<!-- Asosiy autentifikatsiya va Profil paneli -->
+<header class="w-full max-w-2xl bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-6 mb-6 border border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-3">
+<div id="userAvatar" class="w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center font-bold text-lg shadow-inner overflow-hidden">
+<i class="fa-solid fa-user" id="avatarIcon"></i>
+<img id="userAvatarImg" class="w-full h-full object-cover hidden" alt="Avatar">
+</div>
+<div>
+<h1 id="userName" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
+Mehmon Foydalanuvchi
+</h1>
+<p id="userEmail" class="text-xs text-gray-400" data-i18n="loginPrompt">Google Gmail orqali kiring</p>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<!-- 30 ta tilni tanlash menyusi -->
+<select id="langSelect" onchange="changeLanguage(this.value)" class="bg-black/40 border border-white/10 text-xs text-indigo-300 px-2.5 py-2 rounded-xl focus:outline-none">
+<option value="uz">🇺🇿 O'zbekcha</option>
+<option value="en">🇬🇧 English</option>
+<option value="ru">🇷🇺 Русский</option>
+<option value="tr">🇹🇷 Türkçe</option>
+<option value="ar">🇸🇦 العربية</option>
+<option value="zh">🇨🇳 中文</option>
+<option value="es">🇪🇸 Español</option>
+<option value="fr">🇫🇷 Français</option>
+<option value="de">🇩🇪 Deutsch</option>
+<option value="ja">🇯🇵 日本語</option>
+<option value="ko">🇰🇷 한국어</option>
+<option value="hi">🇮🇳 हिन्दी</option>
+<option value="it">🇮🇹 Italiano</option>
+<option value="pt">🇵🇹 Português</option>
+<option value="fa">🇮🇷 فارسی</option>
+<option value="az">🇦🇿 Azərbaycanca</option>
+<option value="kk">🇰🇿 Қазақша</option>
+<option value="ky">🇰🇬 Кыргызча</option>
+<option value="tg">🇹🇯 Тоҷикӣ</option>
+<option value="tk">🇹🇲 Türkmençe</option>
+<option value="ur">🇵🇰 اردو</option>
+<option value="id">🇮🇩 Bahasa Indonesia</option>
+<option value="ms">🇲🇾 Bahasa Melayu</option>
+<option value="vi">🇻🇳 Tiếng Việt</option>
+<option value="th">🇹🇭 ไทย</option>
+<option value="pl">🇵🇱 Polski</option>
+<option value="uk">🇺🇦 Українська</option>
+<option value="nl">🇳🇱 Nederlands</option>
+<option value="sv">🇸🇪 Svenska</option>
+<option value="el">🇬🇷 Ελληνικά</option>
+</select>
+​<button id="googleLoginBtn" onclick="loginWithGoogle()" class="bg-white hover:bg-gray-100 text-slate-900 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 shadow-lg">
+<i class="fa-brands fa-google text-red-500"></i> <span data-i18n="loginBtn">Google orqali kirish</span>
+</button>
+<button id="logoutBtn" onclick="logoutUser()" class="hidden bg-red-600/80 hover:bg-red-600 text-white px-3 py-2 rounded-xl text-xs transition" data-i18n="logoutBtn">
+Chiqish
+</button>
+<div id="currentTime" class="bg-black/30 px-2.5 py-2 rounded-xl font-semibold text-xs text-indigo-300 border border-white/5">
+00:00:00
+</div>
+</div>
+</header>
+​<!-- REKLAMA BLOKI 2 (O'rta banner) -->
+<div class="w-full max-w-2xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-xl p-2.5 mb-6 flex items-center justify-between text-xs text-blue-300">
+<span class="flex items-center gap-2"><i class="fa-solid fa-rectangle-ad text-blue-400"></i> <span data-i18n="adText">Sizga yoqishi mumkin bo'lgan ilova yoki o'yinlar bo'lishi mumkin</span></span>
+<span class="bg-blue-500/30 px-2 py-0.5 rounded text-[10px]" data-i18n="adBadge2">Reklama</span>
+</div>
+​<!-- Asosiy Ishchi Maydon -->
+<main class="w-full max-w-2xl bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl p-6 border border-white/10 flex flex-col gap-6">
+​<!-- Tablar -->
+<div class="flex border-b border-white/10">
+<button onclick="switchTab('tasks')" id="tabTasks" class="flex-1 pb-3 font-semibold text-indigo-400 border-b-2 border-indigo-400 transition text-sm">
+<i class="fa-solid fa-list-check mr-1"></i> <span data-i18n="tabTasks">Kundalik Vazifalar</span>
+</button>
+<button onclick="switchTab('cloudArchive')" id="tabCloud" class="flex-1 pb-3 font-medium text-gray-400 hover:text-gray-200 border-b-2 border-transparent transition text-sm">
+<i class="fa-solid fa-cloud-arrow-up mr-1"></i> <span data-i18n="tabCloud">Bulutli Media Arxiv</span> (<span id="archiveCount">0</span>)
+</button>
+</div>
+​<!-- 1. VAZIFALAR BO'LIMI -->
+<section id="tasksSection" class="flex flex-col gap-4">
+<form id="taskForm" class="flex flex-col gap-3 bg-black/20 p-4 rounded-xl border border-white/5">
+<h2 class="text-md font-semibold text-gray-300"><i class="fa-solid fa-pen-nib text-indigo-400 mr-1"></i> <span data-i18n="addTaskTitle">Yangi eslatma qo'shish</span></h2>
+<div class="flex flex-col sm:flex-row gap-3">
+<input type="text" id="taskTitle" data-i18n-placeholder="taskPlaceholder" placeholder="Qanday ish bajarish kerak?" required
+class="flex-1 px-4 py-3 rounded-xl bg-black/40 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500 text-sm">
+<input type="time" id="taskTime" required
+class="px-4 py-3 rounded-xl bg-black/40 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-indigo-300 font-semibold text-sm">
+</div>
+<button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-xl shadow-lg shadow-indigo-900/50 transition flex items-center justify-center gap-2 text-sm">
+<i class="fa-solid fa-bell"></i> <span data-i18n="setAlertBtn">Eslatmani O'rnatish</span>
+</button>
+</form>
+​<div class="flex justify-between items-center mt-2">
+<h3 class="font-semibold text-gray-300 text-sm" data-i18n="activePlans">Faol rejalar</h3>
+<button onclick="archiveAllCompleted()" class="text-xs text-indigo-400 hover:underline" data-i18n="clearCompleted">Bajarilganlarni tozalash</button>
+</div>
+<div id="taskList" class="flex flex-col gap-3 max-h-60 overflow-y-auto pr-1">
+<!-- Vazifalar ro'yxati -->
+</div>
+</section>
+​<!-- 2. BULUTLI MEDIA ARXIV BO'LIMI -->
+<section id="cloudSection" class="hidden flex flex-col gap-4">
+<div class="bg-black/20 p-4 rounded-xl border border-white/5 flex flex-col gap-3">
+<h2 class="text-md font-semibold text-gray-300"><i class="fa-solid fa-cloud-arrow-down text-indigo-400 mr-1"></i> <span data-i18n="cloudTitle">Rasm, Musiqa va Videolarni Bulutga Saqlash</span></h2>
+<p class="text-xs text-gray-400" data-i18n="cloudDesc">Faylni yuklang. Fayl bulutga saqlangach, qurilmangiz galereyasidan o'chirib yuborishingiz mumkin.</p>
+​<div class="flex flex-col sm:flex-row gap-3">
+<input type="file" id="mediaFileInput" accept="image/*,audio/*,video/*"
+class="flex-1 px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 cursor-pointer">
+<input type="text" id="mediaSearchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Nomi bo'yicha qidirish..." oninput="renderCloudArchive()"
+class="px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 w-full sm:w-48">
+</div>
+<button onclick="uploadMediaToCloud()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-4 rounded-xl transition text-xs flex items-center justify-center gap-2">
+<i class="fa-solid fa-cloud-arrow-up"></i> <span data-i18n="uploadBtn">Google Bulutiga Yuklash va Saqlash</span>
+</button>
+</div>
+​<!-- Arxivlangan media elementlari -->
+<div class="flex justify-between items-center mt-2">
+<h3 class="font-semibold text-gray-300 text-sm" data-i18n="cloudArchiveList">Bulutdagi Arxiv</h3>
+</div>
+<div id="cloudArchiveList" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-60 overflow-y-auto pr-1">
+<!-- Media kartochkalari -->
+</div>
+</section>
+​</main>
+​<!-- REKLAMA BLOKI 3 (Pastki banner) -->
+<div class="w-full max-w-2xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-xl p-2.5 mt-6 flex items-center justify-between text-xs text-purple-300">
+<span class="flex items-center gap-2"><i class="fa-solid fa-rectangle-ad text-purple-400"></i> <span data-i18n="adText">Sizga yoqishi mumkin bo'lgan ilova yoki o'yinlar bo'lishi mumkin</span></span>
+<span class="bg-purple-500/30 px-2 py-0.5 rounded text-[10px]" data-i18n="adBadge3">Tavsiya</span>
+</div>
+​<!-- REKLAMA BLOKI 4 (Eng pastki banner) -->
+<div class="w-full max-w-2xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-xl p-2.5 mt-2 flex items-center justify-between text-xs text-emerald-300">
+<span class="flex items-center gap-2"><i class="fa-solid fa-rectangle-ad text-emerald-400"></i> <span data-i18n="adText">Sizga yoqishi mumkin bo'lgan ilova yoki o'yinlar bo'lishi mumkin</span></span>
+<span class="bg-emerald-500/30 px-2 py-0.5 rounded text-[10px]" data-i18n="adBadge4">Reklama</span>
+</div>
+​<!-- Eslatma kelganda chiqadigan Modal -->
+<div id="alertModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+<div class="bg-slate-900 border border-white/10 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+<div class="text-center">
+<div class="w-16 h-16 bg-pink-500/20 text-pink-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-pink-500/30">
+<i class="fa-solid fa-bell-ring animate-bounce"></i>
+</div>
+<h3 class="text-xl font-bold text-white mb-2" data-i18n="alertTitle">Eslatma Vaqti Keldi!</h3>
+<p id="modalTaskText" class="text-gray-300 mb-6 bg-black/30 p-3 rounded-xl border border-white/5 text-sm"></p>
+<div class="flex gap-3">
+<button onclick="closeModalAndDone()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl transition text-sm shadow-lg" data-i18n="btnDone">
+Bajarildi
+</button>
+<button onclick="closeModalOnly()" class="flex-1 bg-white/10 hover:bg-white/20 text-gray-300 font-medium py-2.5 rounded-xl transition text-sm" data-i18n="btnLater">
+Keyinroq
+</button>
+</div>
+</div>
+</div>
+</div>
+​<!-- Xabar oynasi -->
+<div id="msgModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+<div class="bg-slate-900 border border-white/10 rounded-2xl max-w-sm w-full p-6 shadow-2xl text-center">
+<h3 id="msgTitle" class="text-lg font-bold text-white mb-2" data-i18n="msgTitle">Xabar</h3>
+<p id="msgText" class="text-gray-300 mb-6 text-sm"></p>
+<button onclick="document.getElementById('msgModal').classList.add('hidden')" class="w-full bg-indigo-600 text-white font-medium py-2.5 rounded-xl text-sm" data-i18n="btnOk">Tushunarli</button>
+</div>
+</div>
+​<!-- Tarjimalar -->
+<script>
+const translations = {
+uz: {
+adText: "Sizga yoqishi mumkin bo'lgan ilova yoki o'yinlar bo'lishi mumkin",
+adBadge1: "E'lon", adBadge2: "Reklama", adBadge3: "Tavsiya", adBadge4: "Reklama",
+guestName: "Mehmon Foydalanuvchi",
+loginPrompt: "Google Gmail orqali kiring",
+loginBtn: "Google orqali kirish",
+logoutBtn: "Chiqish",
+tabTasks: "Kundalik Vazifalar",
+tabCloud: "Bulutli Media Arxiv",
+addTaskTitle: "Yangi eslatma qo'shish",
+taskPlaceholder: "Qanday ish bajarish kerak?",
+setAlertBtn: "Eslatmani O'rnatish",
+activePlans: "Faol rejalar",
+clearCompleted: "Bajarilganlarni tozalash",
+cloudTitle: "Rasm, Musiqa va Videolarni Bulutga Saqlash",
+cloudDesc: "Faylni yuklang. Fayl bulutga saqlangach, qurilmangiz galereyasidan o'chirib yuborishingiz mumkin.",
+searchPlaceholder: "Nomi bo'yicha qidirish...",
+uploadBtn: "Google Bulutiga Yuklash va Saqlash",
+cloudArchiveList: "Bulutdagi Arxiv",
+alertTitle: "Eslatma Vaqti Keldi!",
+btnDone: "Bajarildi",
+btnLater: "Keyinroq",
+msgTitle: "Xabar",
+btnOk: "Tushunarli",
+downloadBtn: "Qayta yuklab olish",
+emptyTasks: "Faol rejalar mavjud emas.",
+emptyArchive: "Arxiv bo'sh yoki fayl topilmadi."
+},
+en: {
+adText: "Apps or games you might be interested in",
+adBadge1: "Ad", adBadge2: "Sponsored", adBadge3: "Recommended", adBadge4: "Ad",
+guestName: "Guest User",
+loginPrompt: "Sign in with Google Gmail",
+loginBtn: "Sign in with Google",
+logoutBtn: "Log out",
+tabTasks: "Daily Tasks",
+tabCloud: "Cloud Media Archive",
+addTaskTitle: "Add New Reminder",
+taskPlaceholder: "What needs to be done?",
+setAlertBtn: "Set Reminder",
+activePlans: "Active Plans",
+clearCompleted: "Clear Completed",
+cloudTitle: "Save Images, Music & Videos to Cloud",
+cloudDesc: "Upload files to cloud, then safely delete them from your local gallery.",
+searchPlaceholder: "Search by name...",
+uploadBtn: "Upload & Save to Cloud",
+cloudArchiveList: "Cloud Archive",
+alertTitle: "Reminder Time!",
+btnDone: "Done",
+btnLater: "Later",
+msgTitle: "Message",
+btnOk: "Got it",
+downloadBtn: "Download again",
+emptyTasks: "No active plans.",
+emptyArchive: "Archive is empty or file not found."
+},
+ru: {
+adText: "Приложения или игры, которые могут вам понравиться",
+adBadge1: "Объявление", adBadge2: "Реклама", adBadge3: "Рекомендуем", adBadge4: "Реклама",
+guestName: "Гостевой пользователь",
+loginPrompt: "Войдите через Google Gmail",
+loginBtn: "Войти через Google",
+logoutBtn: "Выйти",
+tabTasks: "Ежедневные задачи",
+tabCloud: "Облачный медиа архив",
+addTaskTitle: "Добавить напоминание",
+taskPlaceholder: "Что нужно сделать?",
+setAlertBtn: "Установить напоминание",
+activePlans: "Активные планы",
+clearCompleted: "Очистить выполненные",
+cloudTitle: "Сохранить файлы в облако",
+cloudDesc: "Загрузите файл в облако, после чего можете удалить его из памяти устройства.",
+searchPlaceholder: "Поиск по названию...",
+uploadBtn: "Загрузить в облако Google",
+cloudArchiveList: "Облачный архив",
+alertTitle: "Время напоминания!",
+btnDone: "Выполнено",
+btnLater: "Позже",
+msgTitle: "Сообщение",
+btnOk: "Понятно",
+downloadBtn: "Скачать снова",
+emptyTasks: "Нет активных планов.",
+emptyArchive: "Архив пуст или файл не найден."
+}
+};
+​function getTranslation(lang, key) {
+if (translations[lang] && translations[lang][key]) {
+return translations[lang][key];
+}
+return translations['en'][key] || key;
+}
+​let currentLang = 'uz';
+​window.changeLanguage = function(lang) {
+currentLang = lang;
+document.querySelectorAll('[data-i18n]').forEach(el => {
+const key = el.getAttribute('data-i18n');
+el.innerText = getTranslation(lang, key);
+});
+document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+const key = el.getAttribute('data-i18n-placeholder');
+el.placeholder = getTranslation(lang, key);
+});
+renderTasks();
+renderCloudArchive();
+}
+</script>
+​<!-- Firebase va Asosiy Mantiq -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInAnonymously, signInWithCustomToken, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+​const appId = typeof __app_id !== 'undefined' ? __app_id : 'kundalik-app-real';
+const firebaseConfig = JSON.parse(__firebase_config);
+​const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+​let currentUser = null;
+let tasks = [];
+let cloudMedia = [];
+let currentAlertTaskId = null;
+let unsubscribeTasks = null;
+let unsubscribeMedia = null;
+​window.onload = async function() {
+const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+try {
+if (token) { await signInWithCustomToken(auth, token); }
+else { await signInAnonymously(auth); }
+} catch (error) {
+try { await signInAnonymously(auth); } catch (e) {}
+}
+​onAuthStateChanged(auth, (user) => {
+if (user) {
+currentUser = user;
+updateUserProfileUI(user);
+if (!user.isAnonymous) { loadUserFirestoreData(user.uid); }
+}
+});
+​setInterval(updateClock, 1000);
+};
+​window.loginWithGoogle = async function() {
+try {
+const result = await signInWithPopup(auth, provider);
+currentUser = result.user;
+updateUserProfileUI(currentUser);
+loadUserFirestoreData(currentUser.uid);
+showMsg(getTranslation(currentLang, 'msgTitle'), "Google login success!");
+} catch (error) {
+showMsg(getTranslation(currentLang, 'msgTitle'), "Popup blocked or limited in this frame.");
+}
+};
+​window.logoutUser = async function() {
+await signOut(auth);
+await signInAnonymously(auth);
+tasks = [];
+cloudMedia = [];
+renderTasks();
+renderCloudArchive();
+};
+​function updateUserProfileUI(user) {
+const nameEl = document.getElementById('userName');
+const emailEl = document.getElementById('userEmail');
+const loginBtn = document.getElementById('googleLoginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const avatarIcon = document.getElementById('avatarIcon');
+const avatarImg = document.getElementById('userAvatarImg');
+​if (user && !user.isAnonymous) {
+nameEl.innerText = user.displayName || "Google User";
+emailEl.innerText = user.email || "Gmail connected";
+loginBtn.classList.add('hidden');
+logoutBtn.classList.remove('hidden');
+if (user.photoURL) {
+avatarImg.src = user.photoURL;
+avatarImg.classList.remove('hidden');
+avatarIcon.classList.add('hidden');
+}
+} else {
+nameEl.innerText = getTranslation(currentLang, 'guestName');
+emailEl.innerText = getTranslation(currentLang, 'loginPrompt');
+loginBtn.classList.remove('hidden');
+logoutBtn.classList.add('hidden');
+avatarImg.classList.add('hidden');
+avatarIcon.classList.remove('hidden');
+}
+}
+​function loadUserFirestoreData(uid) {
+const tasksCol = collection(db, 'artifacts', appId, 'users', uid, 'tasks');
+const mediaCol = collection(db, 'artifacts', appId, 'users', uid, 'media');
+​if (unsubscribeTasks) unsubscribeTasks();
+if (unsubscribeMedia) unsubscribeMedia();
+​unsubscribeTasks = onSnapshot(tasksCol, (snapshot) => {
+tasks = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+renderTasks();
+});
+​unsubscribeMedia = onSnapshot(mediaCol, (snapshot) => {
+cloudMedia = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+renderCloudArchive();
+});
+}
+​document.getElementById('taskForm').addEventListener('submit', async function(e) {
+e.preventDefault();
+if (!currentUser || currentUser.isAnonymous) {
+showMsg(getTranslation(currentLang, 'msgTitle'), "Please login with Google first!");
+return;
+}
+const title = document.getElementById('taskTitle').value;
+const time = document.getElementById('taskTime').value;
+​try {
+const tasksCol = collection(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks');
+await addDoc(tasksCol, { title, time, completed: false, alertTriggered: false, createdAt: Date.now() });
+this.reset();
+} catch (err) {}
+});
+​window.toggleTask = async function(id, currentStatus) {
+const t = tasks.find(x => x.id === id);
+if (t) t.completed = !currentStatus;
+renderTasks();
+};
+​window.deleteTask = async function(id) {
+if (!currentUser) return;
+try { await deleteDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', id)); } catch (e) {}
+};
+​window.archiveAllCompleted = async function() {
+if (!currentUser) return;
+tasks.forEach(async (t) => {
+if (t.completed) {
+await deleteDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', t.id));
+}
+});
+};
+​window.uploadMediaToCloud = async function() {
+if (!currentUser || currentUser.isAnonymous) {
+showMsg(getTranslation(currentLang, 'msgTitle'), "Please login with Google to use Cloud Archive!");
+return;
+}
+const fileInput = document.getElementById('mediaFileInput');
+if (fileInput.files.length === 0) return;
+​const file = fileInput.files[0];
+const reader = new FileReader();
+​reader.onload = async function(e) {
+try {
+const mediaCol = collection(db, 'artifacts', appId, 'users', currentUser.uid, 'media');
+await addDoc(mediaCol, {
+name: file.name,
+type: file.type,
+size: (file.size / (1024*1024)).toFixed(2) + " MB",
+dataUrl: e.target.result,
+date: new Date().toLocaleDateString()
+});
+fileInput.value = "";
+showMsg(getTranslation(currentLang, 'msgTitle'), "File successfully uploaded to Cloud!");
+} catch (err) {}
+};
+reader.readAsDataURL(file);
+};
+​window.deleteFromCloud = async function(id) {
+if (!currentUser) return;
+try { await deleteDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'media', id)); } catch (e) {}
+};
+​function renderTasks() {
+const listEl = document.getElementById('taskList');
+if (tasks.length === 0) {
+listEl.innerHTML = <p class="text-center text-gray-500 py-4 text-xs">${getTranslation(currentLang, 'emptyTasks')}</p>;
+return;
+}
+listEl.innerHTML = tasks.map(t => <div class="flex items-center justify-between p-3 bg-black/20 rounded-xl border border-white/5"> <div class="flex items-center gap-3"> <input type="checkbox" onclick="toggleTask('${t.id}', ${t.completed})" ${t.completed ? 'checked' : ''} class="w-4 h-4 text-indigo-600 rounded cursor-pointer"> <div> <h4 class="text-sm font-medium text-gray-200 ${t.completed ? 'line-through text-gray-500' : ''}">${escapeHtml(t.title)}</h4> <span class="text-[10px] text-indigo-400 font-semibold"><i class="fa-regular fa-clock mr-1"></i>${t.time}</span> </div> </div> <button onclick="deleteTask('${t.id}')" class="text-gray-500 hover:text-red-400 p-2 text-xs"><i class="fa-solid fa-trash"></i></button> </div>).join('');
+}
+​window.renderCloudArchive = function() {
+const searchVal = document.getElementById('mediaSearchInput').value.toLowerCase();
+const archiveListEl = document.getElementById('cloudArchiveList');
+document.getElementById('archiveCount').innerText = cloudMedia.length;
+​const filtered = cloudMedia.filter(m => m.name.toLowerCase().includes(searchVal));
+if (filtered.length === 0) {
+archiveListEl.innerHTML = <p class="col-span-2 text-center text-gray-500 py-4 text-xs">${getTranslation(currentLang, 'emptyArchive')}</p>;
+return;
+}
+​archiveListEl.innerHTML = filtered.map(m => {
+let badgeColor = "bg-blue-500/20 text-blue-300";
+let icon = "fa-file";
+if (m.type.startsWith("image/")) { badgeColor = "bg-pink-500/20 text-pink-300"; icon = "fa-image"; }
+else if (m.type.startsWith("audio/")) { badgeColor = "bg-purple-500/20 text-purple-300"; icon = "fa-music"; }
+else if (m.type.startsWith("video/")) { badgeColor = "bg-amber-500/20 text-amber-300"; icon = "fa-video"; }
+​return <div class="bg-black/30 p-3 rounded-xl border border-white/5 flex flex-col justify-between gap-2"> <div class="flex items-start justify-between gap-2"> <div class="flex items-center gap-2 overflow-hidden"> <span class="p-2 rounded-lg ${badgeColor}"><i class="fa-solid ${icon}"></i></span> <div class="overflow-hidden"> <h4 class="text-xs font-medium text-gray-200 truncate" title="${escapeHtml(m.name)}">${escapeHtml(m.name)}</h4> <span class="text-[10px] text-gray-400">${m.size} • ${m.date}</span> </div> </div> <button onclick="deleteFromCloud('${m.id}')" class="text-gray-500 hover:text-red-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button> </div> <div class="flex gap-2 mt-1"> <a href="${m.dataUrl}" download="${m.name}" class="flex-1 bg-indigo-600/50 hover:bg-indigo-600 text-white py-1.5 px-3 rounded-lg text-center text-[10px] transition"> <i class="fa-solid fa-download mr-1"></i> ${getTranslation(currentLang, 'downloadBtn')} </a> </div> </div>;
+}).join('');
+};
+​function updateClock() {
+const now = new Date();
+const h = String(now.getHours()).padStart(2, '0');
+const m = String(now.getMinutes()).padStart(2, '0');
+const s = String(now.getSeconds()).padStart(2, '0');
+document.getElementById('currentTime').innerText = ${h}:${m}:${s};
+​const timeStr = ${h}:${m};
+tasks.forEach(task => {
+if (!task.completed && task.time === timeStr && !task.alertTriggered) {
+task.alertTriggered = true;
+triggerAlert(task);
+}
+});
+}
+​function triggerAlert(task) {
+currentAlertTaskId = task.id;
+document.getElementById('modalTaskText').innerText = "${task.title}" - time to do! (${task.time});
+document.getElementById('alertModal').classList.remove('hidden');
+playBeep();
+}
+​function playBeep() {
+try {
+const ctx = new (window.AudioContext || window.webkitAudioContext)();
+const osc = ctx.createOscillator();
+const gain = ctx.createGain();
+osc.type = 'sine';
+osc.frequency.setValueAtTime(700, ctx.currentTime);
+gain.gain.setValueAtTime(0.2, ctx.currentTime);
+osc.connect(gain);
+gain.connect(ctx.destination);
+osc.start();
+osc.stop(ctx.currentTime + 0.6);
+} catch (e) {}
+}
+​window.closeModalAndDone = async function() {
+if (currentAlertTaskId && currentUser) {
+await deleteDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'tasks', currentAlertTaskId));
+currentAlertTaskId = null;
+}
+document.getElementById('alertModal').classList.add('hidden');
+};
+​window.closeModalOnly = function() {
+currentAlertTaskId = null;
+document.getElementById('alertModal').classList.add('hidden');
+};
+​window.switchTab = function(tab) {
+const tasksSec = document.getElementById('tasksSection');
+const cloudSec = document.getElementById('cloudSection');
+const tabTasks = document.getElementById('tabTasks');
+const tabCloud = document.getElementById('tabCloud');
+​if (tab === 'tasks') {
+tasksSec.classList.remove('hidden');
+cloudSec.classList.add('hidden');
+tabTasks.className = "flex-1 pb-3 font-semibold text-indigo-400 border-b-2 border-indigo-400 transition text-sm";
+tabCloud.className = "flex-1 pb-3 font-medium text-gray-400 hover:text-gray-200 border-b-2 border-transparent transition text-sm";
+} else {
+tasksSec.classList.add('hidden');
+cloudSec.classList.remove('hidden');
+tabCloud.className = "flex-1 pb-3 font-semibold text-indigo-400 border-b-2 border-indigo-400 transition text-sm";
+tabTasks.className = "flex-1 pb-3 font-medium text-gray-400 hover:text-gray-200 border-b-2 border-transparent transition text-sm";
+}
+};
+​function escapeHtml(text) {
+const map = { '&': '&', '<': '<', '>': '>', '"': '"', "'": ''' };
+return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+​function showMsg(title, text) {
+document.getElementById('msgTitle').innerText = title;
+document.getElementById('msgText').innerText = text;
+document.getElementById('msgModal').classList.remove('hidden');
+}
+</script>
+</body>
+</html>
